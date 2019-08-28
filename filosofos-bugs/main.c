@@ -35,7 +35,7 @@ void* filosofo(void* arg) {
 
 
 int main(int argc, char** argv) {
-    if (argc < 1) {
+    if (argc < 3) {
         printf("Uso: %s n_filosofos comida_por_prato\n", argv[0]);
         return 1;
     }
