@@ -7,7 +7,7 @@ int* generate_set(int start, int end, int step, size_t* out_sz);
 int sets_equal(int* lb, int* le, int* rb, int* re);
 
 int* lower_bound(int value, int* begin, int* end) {
-    while (*begin != value && (end-begin) > 1) { 
+    while ((end-begin) > 1 && *begin != value) { 
         int* mid = begin + (end-begin)/2;
         if (value < *mid) 
             end = mid;
@@ -21,7 +21,8 @@ size_t merge_join(int* lb, int* le, int* rb, int* re, int* out) {
     size_t size = 0;
     while (lb != le && rb != re) {
         if (*lb == *rb) {
-            *++out = ++lb[0];
+            *out++ = lb[0];
+            ++lb;
             ++rb;
             ++size;
         } else if (*lb < *rb) {
