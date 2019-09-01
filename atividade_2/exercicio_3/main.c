@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
 //        (pai)
 //          |
@@ -26,8 +29,29 @@
 
 int main(int argc, char** argv) {
     printf("Processo pai iniciado\n");
+    int status;
+    pid_t pid_2;
+    fflush(stdout);
+    pid_t pid_1 = fork();
+    if (pid_1) {
+        waitpid(pid_1, &status, 0);
+        fflush(stdout);
+        pid_2 = fork();
+        if (pid_2) {
+        } else {
+            printf("grep PID %d iniciado\n", getpid());
+            fflush(stdout);
+            int s = execlp("/bin/grep", "grep", "adamantium", "text", NULL);
+            exit(s);
+        }
+    } else {
+        printf("sed PID %d iniciado\n", getpid());
+        fflush(stdout);
+        execlp("/bin/sed", "sed", "-i", "-e", "s/silver/axamantium/g;s/adamantium/silver/g;s/axamantium/adamantium/g", "text", NULL);
+        exit(1);
+    }
 
-    // ....
-    
+    waitpid(pid_2, &status, 0);
+    printf("grep retornou com código %d,%s encontrou adamantium\n", WEXITSTATUS(status), status ? " não" : "");
     return 0;
 }
