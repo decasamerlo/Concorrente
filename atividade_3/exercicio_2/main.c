@@ -5,6 +5,23 @@
 #include <stdio.h>
 #include <pthread.h>
 
+struct argumentos {
+    double *vetor_a;
+    double *vetor_b;
+    double *vetor_c;
+    int size;
+};
+
+void *func_thread(void *args_void) {
+    struct argumentos *args = (struct argumentos *) args_void;
+
+    for (int i = 0; i < args->size; i++) {
+        args->vetor_c[i] = args->vetor_a[i] + args->vetor_b[i];
+    }
+
+    pthread_exit(NULL);
+}
+
 // Lê o conteúdo do arquivo filename e retorna um vetor E o tamanho dele
 // Se filename for da forma "gen:%d", gera um vetor aleatório com %d elementos
 //
@@ -66,11 +83,39 @@ int main(int argc, char* argv[]) {
     //Cria vetor do resultado 
     double* c = malloc(a_size*sizeof(double));
 
+    // Garante que não serão criadas threads excedentes
+    if (n_threads > a_size) {
+        n_threads = a_size;
+    }
+
+    pthread_t threads[n_threads];
+    void * retorno;
+    struct argumentos args[n_threads];
+
+    for (int i = 0; i < n_threads; ++i) {
+        args[i].size = a_size/n_threads;
+        if (i == n_threads-1) {
+            args[i].size += a_size%n_threads;
+        }
+        args[i].vetor_a = a+(i*a_size/n_threads);
+        args[i].vetor_b = b+(i*a_size/n_threads);
+        args[i].vetor_c = malloc(args[i].size*sizeof(double));
+        pthread_create(&threads[i], NULL, func_thread, &args[i]);
+    }
+
+    for(int i = 0; i < n_threads; ++i) {
+        pthread_join(threads[i], &retorno);
+        for (int k = 0; k < args[i].size; k++) {
+            c[i*a_size/n_threads + k] = *(args[i].vetor_c + k);
+        }
+        free(args[i].vetor_c);
+    }
+
     // Calcula com uma thread só. Programador original só deixou a leitura 
     // do argumento e fugiu pro caribe. É essa computação que você precisa 
     // paralelizar
-    for (int i = 0; i < a_size; ++i) 
-        c[i] = a[i] + b[i];
+    // for (int i = 0; i < a_size; ++i) 
+    //     c[i] = a[i] + b[i];
 
     //    +---------------------------------+
     // ** | IMPORTANTE: avalia o resultado! | **
