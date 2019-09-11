@@ -3,21 +3,20 @@
 #include <stdlib.h>
 #include <assert.h>
 
-int gValue = 0;
-pthread_mutex_t gMtx;
+// int gValue = 0;
+// pthread_mutex_t gMtx;
 
 // Função imprime resultados na correção do exercício -- definida em helper.c
 void imprimir_resultados(int n, int** results);
 
 // Função escrita por um engenheiro
-void compute(int arg) {
+int compute(int arg, int val) {
     if (arg < 2) {
-        pthread_mutex_lock(&gMtx);
-        gValue += arg;
-        pthread_mutex_unlock(&gMtx);
+        // pthread_mutex_lock(&gMtx);
+        return val += arg;
+        // pthread_mutex_unlock(&gMtx);
     } else {
-        compute(arg - 1);
-        compute(arg - 2);
+        return compute(arg - 1, val) + compute(arg - 2, val);
     }
 }
 
@@ -25,11 +24,11 @@ void compute(int arg) {
 // thread que retorna o resultado de compute(arg
 void* compute_thread(void* arg) {
     int* ret = malloc(sizeof(int));
-    pthread_mutex_lock(&gMtx);
-    gValue = 0;
-    compute(*((int*)arg));
-    *ret = gValue;
-    pthread_mutex_unlock(&gMtx);
+    // pthread_mutex_lock(&gMtx);
+    int gValue = 0;
+    *ret = compute(*((int*)arg), gValue);
+    // *ret = gValue;
+    // pthread_mutex_unlock(&gMtx);
     return ret;
 }
 
@@ -48,7 +47,7 @@ int main(int argc, char** argv) {
     }
 
     //Inicializa o mutex
-    pthread_mutex_init(&gMtx, NULL);
+    // pthread_mutex_init(&gMtx, NULL);
 
     int args[n_threads];
     int* results[n_threads];
@@ -63,7 +62,7 @@ int main(int argc, char** argv) {
         pthread_join(threads[i], (void**)&results[i]);
 
     // Não usaremos mais o mutex
-    pthread_mutex_destroy(&gMtx);
+    // pthread_mutex_destroy(&gMtx);
 
     // Imprime resultados na tela
     // Importante: deve ser chamada para que a correção funcione
