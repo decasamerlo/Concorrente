@@ -14,6 +14,8 @@ void *consumidor_func(void *arg);
 int indice_produtor, indice_consumidor, tamanho_buffer;
 int* buffer;
 
+sem_t semaforo_produtor, semaforo_consumidor;
+
 //Você deve fazer as alterações necessárias nesta função e na função
 //consumidor_func para que usem semáforos para coordenar a produção
 //e consumo de elementos do buffer.
@@ -26,16 +28,20 @@ void *produtor_func(void *arg) {
             produto = -1;          //envia produto sinlizando FIM
         else 
             produto = produzir(i); //produz um elemento normal
+        sem_wait(&semaforo_produtor);
         indice_produtor = (indice_produtor + 1) % tamanho_buffer; //calcula posição próximo elemento
         buffer[indice_produtor] = produto; //adiciona o elemento produzido à lista
+        sem_post(&semaforo_consumidor);
     }
     return NULL;
 }
 
 void *consumidor_func(void *arg) {
     while (1) {
+        sem_wait(&semaforo_consumidor);
         indice_consumidor = (indice_consumidor + 1) % tamanho_buffer; //Calcula o próximo item a consumir
         int produto = buffer[indice_consumidor]; //obtém o item da lista
+        sem_post(&semaforo_produtor);
         //Podemos receber um produto normal ou um produto especial
         if (produto >= 0)
             consumir(produto); //Consome o item obtido.
@@ -54,6 +60,8 @@ int main(int argc, char *argv[]) {
     tamanho_buffer = atoi(argv[1]);
     int n_itens = atoi(argv[2]);
     printf("n_itens: %d\n", n_itens);
+    pthread_t produtor, consumidor;
+    void * retorno;
 
     //Iniciando buffer
     indice_produtor = 0;
@@ -63,7 +71,17 @@ int main(int argc, char *argv[]) {
     // Crie threads e o que mais for necessário para que uma produtor crie 
     // n_itens produtos e o consumidor os consuma
 
-    // ....
+    sem_init(&semaforo_produtor, 0, tamanho_buffer);
+    sem_init(&semaforo_consumidor, 0, 0);
+
+    pthread_create(&produtor, NULL, produtor_func, &n_itens);
+    pthread_create(&consumidor, NULL, consumidor_func, NULL);
+
+    pthread_join(produtor, &retorno);
+    pthread_join(consumidor, &retorno);
+    
+    sem_destroy(&semaforo_produtor);
+    sem_destroy(&semaforo_consumidor);
     
     //Libera memória do buffer
     free(buffer);
