@@ -23,8 +23,16 @@ void* caixa_func(void *arg);
 
 // Versão thread-safe da função transferir_unsafe.
 void transferir(conta_t *origem, conta_t *destino, double valor) {
-    pthread_mutex_lock(&origem->mutex);
-    pthread_mutex_lock(&destino->mutex);
+    if (&origem->id > &destino->id) {
+        pthread_mutex_lock(&destino->mutex);
+        pthread_mutex_lock(&origem->mutex);
+    } else if (&origem->id < &destino->id) {
+        pthread_mutex_lock(&origem->mutex);
+        pthread_mutex_lock(&destino->mutex);
+    } else {
+        printf("Not possible to transfer from and to the same account\n");
+        return;
+    }
 
     transferir_unsafe(origem, destino, valor);
 
@@ -48,7 +56,7 @@ int main(int argc, char* argv[]) {
     // Esperar as threads terminarem
     for (int i = 0; i < NUM_CAIXAS; i++)
         pthread_join(caixas[i], NULL);
-  
+
     // Destroi os mutexes
     for (int i = 0; i < NUM_CONTAS; i++)
         pthread_mutex_destroy(&contas[i].mutex);
