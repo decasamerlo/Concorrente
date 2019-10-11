@@ -10,15 +10,19 @@ void init_matrix(double* m, int rows, int columns) {
             m[i*columns+j] = i + j;
 }
 
+// erros do estagiário:
+//  1 - as variáveis i, j, k devem ser declaradas como privadas,
+//      para que uma thread não interfira na execução das outras threads
+//  2 - a segunda paralelização não é necessária
 
 void mult_matrix(double* out, double* left, double *right, 
                  int rows_left, int cols_left, int cols_right) {
     int i, j, k;
-    #pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel private(i, j, k)
+    #pragma omp for schedule(dynamic, 1)
     for (i = 0; i < rows_left; ++i) {
         for (j = 0; j < cols_right; ++j) {
             out[i*cols_right+j] = 0;
-            #pragma omp parallel for firstprivate(i, j) schedule(guided)
             for (k = 0; k < cols_left; ++k) 
                 out[i*cols_right+j] += left[i*cols_left+k]*right[k*cols_right+j];
         }
