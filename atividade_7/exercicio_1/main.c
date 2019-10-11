@@ -4,6 +4,8 @@
 #include <omp.h>
 
 void calcular(double* c, int size, int n_threads) {
+    #pragma omp parallel
+    #pragma omp for
     for (long long int i = 0; i < size; i++) {
         c[i] = sqrt(i * 32) + sqrt(i * 16 + i * 8) + sqrt(i * 4 + i * 2 + i);
         c[i] -= sqrt(i * 32 * i * 16 + i * 4 + i * 2 + i);
@@ -21,6 +23,8 @@ int main(int argc, char** argv) {
     int size = argc > 2 ? atoi(argv[2]) : 20000000;
 
     double *c = (double *) malloc (sizeof(double) * size);
+
+    omp_set_num_threads(n_threads);
     
     //Guarda ponto de início da computação
     double start = omp_get_wtime();
