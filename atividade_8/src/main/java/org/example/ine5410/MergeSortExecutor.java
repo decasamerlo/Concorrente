@@ -7,7 +7,20 @@ import java.util.concurrent.*;
 
 public class MergeSortExecutor<T extends Comparable<T>> implements MergeSort<T> {
 
-    ThreadGroup tg = new ThreadGroup("groupExecutor");
+    private ThreadGroup tg;
+    private ExecutorService executor;
+
+    MergeSortExecutor() {
+        this.tg = new ThreadGroup("groupExecutor");
+        this.executor = Executors.newCachedThreadPool(new ThreadFactory(){
+        
+            @Override
+            public Thread newThread(Runnable arg0) {
+                return new Thread(tg, arg0);
+            }
+        });
+    }
+
 
     @Nonnull
     @Override
@@ -23,13 +36,6 @@ public class MergeSortExecutor<T extends Comparable<T>> implements MergeSort<T> 
             return new ArrayList<>(list);
 
         /* ~~~~ O tipo do executor precisa ser Cached!!!! ~~~~ */
-        ExecutorService executor = Executors.newCachedThreadPool(new ThreadFactory(){
-        
-            @Override
-            public Thread newThread(Runnable arg0) {
-                return new Thread(tg, arg0);
-            }
-        });
 
         int mid = list.size() / 2;
         ArrayList<T> left = null;
@@ -37,7 +43,7 @@ public class MergeSortExecutor<T extends Comparable<T>> implements MergeSort<T> 
 
         if (Thread.currentThread().getThreadGroup() == tg) {
             // System.out.println("created thread with activeCount() = " + Thread.activeCount());
-            Future<ArrayList<T>> future = executor.submit(new Callable<ArrayList<T>>() {
+            Future<ArrayList<T>> future = this.executor.submit(new Callable<ArrayList<T>>() {
 
                 @Override
                 public ArrayList<T> call() throws Exception {
