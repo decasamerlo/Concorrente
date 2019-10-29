@@ -6,12 +6,15 @@ import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static br.ufsc.atividade9.Processo.Tipo.*;
 import static java.lang.String.format;
+import static java.util.Collections.synchronizedList;
 
 @RunWith(Enclosed.class)
 public class TribunalTest {
@@ -46,10 +49,9 @@ public class TribunalTest {
     }
 
     public static class FullQueue  {
-        private static long duration = Long.MAX_VALUE;
         private static long totalDuration = Long.MAX_VALUE;
+        private static List<Long> rejectDurations = synchronizedList(new ArrayList<>());
         private static int maxConcurrentJudgments = Integer.MAX_VALUE;
-        private static Boolean culpado = true;
         private static List<Boolean> results = new ArrayList<>();
 
 
@@ -67,22 +69,16 @@ public class TribunalTest {
                         futures.add(ex.submit(new Callable<Boolean>() {
                             @Override
                             public Boolean call() {
+                                StopWatch sw = StopWatch.createStarted();
                                 try {
                                     return tribunal.julgar(new Processo(id, FURTO));
                                 } catch (TribunalSobrecarregadoException e) {
+                                    rejectDurations.add(sw.getTime());
                                     return null;
                                 }
                             }
                         }));
                     }
-                    StopWatch sw = StopWatch.createStarted();
-                    try {
-                        culpado = tribunal.julgar(new Processo(7, FURTO));
-                    } catch (TribunalSobrecarregadoException e) {
-                        culpado = null;
-                    }
-                    duration = sw.getTime();
-
                     for (Future<Boolean> future : futures) results.add(future.get());
                     totalDuration = outerSw.getTime();
                     maxConcurrentJudgments = tribunal.maxConcurrentJudgments.get();
@@ -98,19 +94,20 @@ public class TribunalTest {
 
         @AfterClass
         public static void tearDown() {
-            duration = Long.MAX_VALUE;
             totalDuration = Long.MAX_VALUE;
+            rejectDurations.clear();
             maxConcurrentJudgments = Integer.MAX_VALUE;
-            culpado = true;
             results.clear();
         }
 
         @Test
         public void testrejeitadoRapido() {
+            double avg = rejectDurations.stream().reduce(0L, Long::sum)
+                    / (double) rejectDurations.size();
             Assert.assertTrue("Fila estava cheia e processo demorou muito para ser " +
-                            "julgado. Deveria ter sido inocentado imediatamente, mas levou "
-                            + duration + "ms.",
-                    duration < 750);
+                              "rejeitado. Deveria ter sido rejeitado imediatamente, mas levou "
+                              + avg + "ms.",
+                     avg < 750);
         }
 
         @Test
@@ -122,18 +119,10 @@ public class TribunalTest {
 
         @Test
         public void testResultados() {
-            Assert.assertNull("Processo com culpado foi colocado com a fila cheia, " +
-                    "mas o culpado não foi inocentado", culpado);
-            for (int i = 0; i < 4; i++) {
-                Assert.assertTrue(format("Processo i=%d inocentado indevidamente!", i),
-                        results.get(i));
-            }
-            for (int i = 4; i < 8; i++) {
-                // esses resultados devem ser false ou null
-                //noinspection PointlessBooleanExpression,SimplifiableJUnitAssertion
-                Assert.assertFalse(format("Processo i=%d culpado indevidamente!", i),
-                        results.get(i) == Boolean.TRUE);
-            }
+            int rejected = (int) results.stream().filter(Objects::isNull).count();
+            int accepted = results.size() - rejected;
+            Assert.assertEquals(accepted, 6);
+            Assert.assertEquals(rejected, 2);
         }
     }
 

@@ -8,12 +8,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 import static br.ufsc.atividade10.Piece.Type.*;
 import static java.lang.String.format;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 public class BufferTest {
     private static final int TIMEOUT = 200;
@@ -146,6 +145,36 @@ public class BufferTest {
         buffer.add(new Piece(7, O)); //no timeout
 
         Assert.assertTrue(addBlocks(buffer, new Piece(8, O)));
+    }
+
+    @Test
+    public void testUsingIfWithMonitorsBringsPainAndSuffering() throws Exception {
+        Buffer buffer = new Buffer(3);
+        buffer.add(new Piece(1, X));
+        Assert.assertTrue(addBlocks(buffer, new Piece(2, X)));
+
+        CompletableFuture<?> added = new CompletableFuture<>();
+        Thread adder = new Thread(() -> {
+            try {
+                buffer.add(new Piece(3, X));
+                added.complete(null);
+            } catch (InterruptedException ignored) {
+            }
+        });
+        adder.start();
+
+        Thread.sleep(200); //chute para esperar adder chegar no add(X)
+        buffer.add(new Piece(4, O)); //gerará um notifyAll()
+        boolean addXTimeouts = false; // mas add(X) NÃO pode adicionar
+        try {
+            added.get(300, MILLISECONDS);
+        } catch (TimeoutException e) {
+            addXTimeouts = true;
+        }
+        Assert.assertTrue(addXTimeouts);
+
+        adder.interrupt();
+        adder.join();
     }
 
     private static void serialProducer(@Nonnull Buffer buffer, @Nonnull Piece.Type type,
