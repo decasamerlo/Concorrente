@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="br.ufsc.ine5410.MessageTest" time="0.184" tests="4" errors="2" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="13"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial/target/test-classes:/home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial/target/classes:/home/alexis/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/home/alexis/.m2/repository/args4j/args4j/2.33/args4j-2.33.jar:/home/alexis/.m2/repository/org/apache/commons/commons-lang3/3.8/commons-lang3-3.8.jar:/home/alexis/.m2/repository/com/google/guava/guava/28.1-jre/guava-28.1-jre.jar:/home/alexis/.m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar:/home/alexis/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/home/alexis/.m2/repository/org/checkerframework/checker-qual/2.8.1/checker-qual-2.8.1.jar:/home/alexis/.m2/repository/com/google/errorprone/error_prone_annotations/2.3.2/error_prone_annotations-2.3.2.jar:/home/alexis/.m2/repository/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar:/home/alexis/.m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.18/animal-sniffer-annotations-1.18.jar:/home/alexis/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/alexis/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://openjdk.java.net/"/>
+    <property name="os.name" value="Linux"/>
+    <property name="java.vm.specification.version" value="13"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-13-openjdk/lib"/>
+    <property name="sun.java.command" value="/home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial/target/surefire/surefirebooter16657071099321189137.jar /home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial/target/surefire 2019-10-20T21-01-01_004-jvmRun1 surefire6519237962241068999tmp surefire_05394396601719658820tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial/target/test-classes:/home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial/target/classes:/home/alexis/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/home/alexis/.m2/repository/args4j/args4j/2.33/args4j-2.33.jar:/home/alexis/.m2/repository/org/apache/commons/commons-lang3/3.8/commons-lang3-3.8.jar:/home/alexis/.m2/repository/com/google/guava/guava/28.1-jre/guava-28.1-jre.jar:/home/alexis/.m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar:/home/alexis/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/home/alexis/.m2/repository/org/checkerframework/checker-qual/2.8.1/checker-qual-2.8.1.jar:/home/alexis/.m2/repository/com/google/errorprone/error_prone_annotations/2.3.2/error_prone_annotations-2.3.2.jar:/home/alexis/.m2/repository/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar:/home/alexis/.m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.18/animal-sniffer-annotations-1.18.jar:/home/alexis/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/alexis/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/home/alexis"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2019-09-17"/>
+    <property name="java.home" value="/usr/lib/jvm/java-13-openjdk"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="/home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial/target/surefire/surefirebooter16657071099321189137.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="13+33"/>
+    <property name="user.name" value="alexis"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="5.3.1-arch1-1-ARCH"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="localRepository" value="/home/alexis/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.version" value="13"/>
+    <property name="user.dir" value="/home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vendor" value="N/A"/>
+    <property name="java.vm.version" value="13+33"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="57.0"/>
+  </properties>
+  <testcase name="testCannotReplyTwice" classname="br.ufsc.ine5410.MessageTest" time="0"/>
+  <testcase name="testRetainsEarlyReply" classname="br.ufsc.ine5410.MessageTest" time="0"/>
+  <testcase name="testReceivesLateReply" classname="br.ufsc.ine5410.MessageTest" time="0.181">
+    <error message="java.lang.AssertionError" type="java.util.concurrent.ExecutionException">java.util.concurrent.ExecutionException: java.lang.AssertionError
+	at br.ufsc.ine5410.MessageTest.testReceivesLateReply(MessageTest.java:74)
+Caused by: java.lang.AssertionError
+</error>
+  </testcase>
+  <testcase name="testWaitForReplyWaitsInteruptibly" classname="br.ufsc.ine5410.MessageTest" time="0.002">
+    <error message="java.lang.AssertionError" type="java.util.concurrent.ExecutionException">java.util.concurrent.ExecutionException: java.lang.AssertionError
+	at br.ufsc.ine5410.MessageTest.testWaitForReplyWaitsInteruptibly(MessageTest.java:32)
+Caused by: java.lang.AssertionError
+</error>
+  </testcase>
+</testsuite><?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="br.ufsc.ine5410.MessageBrokerTest" time="0.5" tests="9" errors="7" skipped="0" failures="2">
+  <properties>
+    <property name="java.specification.version" value="13"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial/target/test-classes:/home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial/target/classes:/home/alexis/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/home/alexis/.m2/repository/args4j/args4j/2.33/args4j-2.33.jar:/home/alexis/.m2/repository/org/apache/commons/commons-lang3/3.8/commons-lang3-3.8.jar:/home/alexis/.m2/repository/com/google/guava/guava/28.1-jre/guava-28.1-jre.jar:/home/alexis/.m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar:/home/alexis/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/home/alexis/.m2/repository/org/checkerframework/checker-qual/2.8.1/checker-qual-2.8.1.jar:/home/alexis/.m2/repository/com/google/errorprone/error_prone_annotations/2.3.2/error_prone_annotations-2.3.2.jar:/home/alexis/.m2/repository/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar:/home/alexis/.m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.18/animal-sniffer-annotations-1.18.jar:/home/alexis/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/alexis/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://openjdk.java.net/"/>
+    <property name="os.name" value="Linux"/>
+    <property name="java.vm.specification.version" value="13"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-13-openjdk/lib"/>
+    <property name="sun.java.command" value="/home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial/target/surefire/surefirebooter16657071099321189137.jar /home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial/target/surefire 2019-10-20T21-01-01_004-jvmRun1 surefire6519237962241068999tmp surefire_05394396601719658820tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial/target/test-classes:/home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial/target/classes:/home/alexis/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/home/alexis/.m2/repository/args4j/args4j/2.33/args4j-2.33.jar:/home/alexis/.m2/repository/org/apache/commons/commons-lang3/3.8/commons-lang3-3.8.jar:/home/alexis/.m2/repository/com/google/guava/guava/28.1-jre/guava-28.1-jre.jar:/home/alexis/.m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar:/home/alexis/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/home/alexis/.m2/repository/org/checkerframework/checker-qual/2.8.1/checker-qual-2.8.1.jar:/home/alexis/.m2/repository/com/google/errorprone/error_prone_annotations/2.3.2/error_prone_annotations-2.3.2.jar:/home/alexis/.m2/repository/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar:/home/alexis/.m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.18/animal-sniffer-annotations-1.18.jar:/home/alexis/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/alexis/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/home/alexis"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2019-09-17"/>
+    <property name="java.home" value="/usr/lib/jvm/java-13-openjdk"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="/home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial/target/surefire/surefirebooter16657071099321189137.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="13+33"/>
+    <property name="user.name" value="alexis"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="5.3.1-arch1-1-ARCH"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="localRepository" value="/home/alexis/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.version" value="13"/>
+    <property name="user.dir" value="/home/alexis/ufsc/ine5410/praticas/examples/java-semaphores/initial"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vendor" value="N/A"/>
+    <property name="java.vm.version" value="13+33"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="57.0"/>
+  </properties>
+  <testcase name="testConcurrentSendThenReceive" classname="br.ufsc.ine5410.MessageBrokerTest" time="0.036">
+    <failure message="expected:&lt;8&gt; but was:&lt;0&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: expected:<8> but was:<0>
+	at br.ufsc.ine5410.MessageBrokerTest.assertSetEquals(MessageBrokerTest.java:204)
+	at br.ufsc.ine5410.MessageBrokerTest.testConcurrentSendThenReceive(MessageBrokerTest.java:194)
+]]></failure>
+  </testcase>
+  <testcase name="testSendAndReceive" classname="br.ufsc.ine5410.MessageBrokerTest" time="0.203">
+    <failure type="java.lang.AssertionError">java.lang.AssertionError
+	at br.ufsc.ine5410.MessageBrokerTest.testSendAndReceive(MessageBrokerTest.java:95)
+</failure>
+  </testcase>
+  <testcase name="testReceiveInOder" classname="br.ufsc.ine5410.MessageBrokerTest" time="0.002">
+    <error type="java.lang.UnsupportedOperationException">java.lang.UnsupportedOperationException
+	at br.ufsc.ine5410.MessageBrokerTest.testReceiveInOder(MessageBrokerTest.java:55)
+</error>
+  </testcase>
+  <testcase name="testSendThenReceive" classname="br.ufsc.ine5410.MessageBrokerTest" time="0.005">
+    <error type="java.lang.UnsupportedOperationException">java.lang.UnsupportedOperationException
+	at br.ufsc.ine5410.MessageBrokerTest.testSendThenReceive(MessageBrokerTest.java:34)
+</error>
+  </testcase>
+  <testcase name="testConcurrentSend" classname="br.ufsc.ine5410.MessageBrokerTest" time="0.01">
+    <error type="java.lang.UnsupportedOperationException">java.lang.UnsupportedOperationException
+	at br.ufsc.ine5410.MessageBrokerTest.testConcurrentSend(MessageBrokerTest.java:165)
+</error>
+  </testcase>
+  <testcase name="testReceiveBeforeSend" classname="br.ufsc.ine5410.MessageBrokerTest" time="0.102">
+    <error type="java.lang.UnsupportedOperationException">java.lang.UnsupportedOperationException
+	at br.ufsc.ine5410.MessageBrokerTest.testReceiveBeforeSend(MessageBrokerTest.java:44)
+</error>
+  </testcase>
+  <testcase name="testConcurrentReceive" classname="br.ufsc.ine5410.MessageBrokerTest" time="0.009">
+    <error type="java.lang.UnsupportedOperationException">java.lang.UnsupportedOperationException
+	at br.ufsc.ine5410.MessageBrokerTest.testConcurrentReceive(MessageBrokerTest.java:139)
+</error>
+  </testcase>
+  <testcase name="testConcurrentReceiveInOrder" classname="br.ufsc.ine5410.MessageBrokerTest" time="0.004">
+    <error message="java.lang.UnsupportedOperationException" type="java.util.concurrent.ExecutionException">java.util.concurrent.ExecutionException: java.lang.UnsupportedOperationException
+	at br.ufsc.ine5410.MessageBrokerTest.testConcurrentReceiveInOrder(MessageBrokerTest.java:119)
+Caused by: java.lang.UnsupportedOperationException
+	at br.ufsc.ine5410.MessageBrokerTest.lambda$testConcurrentReceiveInOrder$4(MessageBrokerTest.java:110)
+</error>
+  </testcase>
+  <testcase name="testIndependentReceivers" classname="br.ufsc.ine5410.MessageBrokerTest" time="0.103">
+    <error type="java.lang.UnsupportedOperationException">java.lang.UnsupportedOperationException
+	at br.ufsc.ine5410.MessageBrokerTest.testIndependentReceivers(MessageBrokerTest.java:68)
+</error>
+  </testcase>
+</testsuite>
